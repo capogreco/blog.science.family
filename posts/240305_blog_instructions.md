@@ -70,7 +70,7 @@ Once you have Deno installed, you can build locally by executing from the root f
 Once you have VSCode installed, you can open your repo by executing from the root folder of your local repo:
 - `code .`
 - once inside VSCode you can make changes to the files, make new files / folders, etc.
-- you can also push to GitHub from inside VSCode by pressing "Source Control", giving a commit message, and pressing "Commit", and then "Sync changes"
+- you can also push to GitHub from inside VSCode by pressing "Source Control", giving a commit message, and pressing "Commit", and then "Sync Changes"
 
 ## Deno Deploy
 Unfortunately, if you have just made a brand new GitHub acccount, Deno Deploy will make you wait a week before letting you sign in.  
