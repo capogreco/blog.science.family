@@ -49,6 +49,8 @@ In order to build locally you will need a few things installed on your computer.
    2. install [Deno](https://docs.deno.com/runtime/manual) by executing `irm https://deno.land/install.ps1 | iex` in [PowerShell](https://learn.microsoft.com/en-us/training/modules/introduction-to-powershell/2-what-is-powershell)
    3. install [VSCode](https://code.visualstudio.com/)
 
+### Git
+
 Once you have Git installed on your computer, you should be able to make a local version of your GitHub repository by executing this line of code in a terminal (macOS) or PowerShell (Windows):
 - `git clone https://github.com/user_name/repo_name`
 - it may ask you for your credentials at this point, but if you installed Git Credential Manager installed, you should only need to do this step once.
@@ -57,11 +59,15 @@ Once you have Git installed on your computer, you should be able to make a local
    - `git commit -m 'description of changes made'` adds a commit message
    - `git push` pushes the changes to GitHub.
 
+### Deno
+
 Once you have Deno installed, you can build locally by executing from the root folder of your local repo:
 - `deno task start`
 - you should be able to view your build from a browser at `localhost:8000`
 - Deno will detect changes to files in the repo and automatically update the build, although you may need to refresh the tab to see the changes in the browser
 - once you are done, pressing `ctrl` + `C` in the terminal should terminate the local deno server
+
+### VSCode
 
 Once you have VSCode installed, you can open your repo by executing from the root folder of your local repo:
 - `code .`
