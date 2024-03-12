@@ -1,7 +1,7 @@
 ---
 title: Re-Locating to science.family
 published_at: 2024-03-04
-snippet: from here we go sci_fam 🚀
+snippet: here we go sci_fam 🚀
 disable_html_sanitization: true
 ---
 
