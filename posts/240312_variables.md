@@ -1,7 +1,7 @@
 ---
 title      : Variables
 published_at: 2024-03-12
-snippet: using names to keep track
+snippet: using names to keep track 🏷️
 disable_html_sanitization: true
 ---
 

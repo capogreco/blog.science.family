@@ -1,7 +1,7 @@
 ---
 title      : Template Literals
 published_at: 2024-03-12
-snippet: creating strings, dynamically 🧵
+snippet: creating strings dynamically 🧵
 disable_html_sanitization: true
 ---
 

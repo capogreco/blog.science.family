@@ -1,7 +1,7 @@
 ---
 title      : Colours in p5
 published_at: 2024-03-12
-snippet: various ways to use colour
+snippet: various ways to use colour 🎨
 disable_html_sanitization: true
 ---
 
