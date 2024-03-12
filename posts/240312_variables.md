@@ -6,9 +6,13 @@ disable_html_sanitization: true
 ---
 
 
-<div align="center">
-  <iframe width=400 height=442 src="https://editor.p5js.org/capogreco/full/CLb2LWbBU"></iframe>
-</div>
+<iframe id="square_descending" src="https://editor.p5js.org/capogreco/full/CLb2LWbBU"></iframe>
+
+<script type="module">
+  const iframe  = document.getElementById (`square_descending`)
+  iframe.width  = iframe.parentNode.clientWidth
+  iframe.height = iframe.parentNode.clientWidth + 42
+</script>
 
 <br>
 
@@ -208,7 +212,14 @@ Note that in this case we have declared variables along the way, in the local sc
 
 Once the results are used to draw the circle, the values of the variables can be lost at the termination of the function, ie. they do not need to persist beyond the scope of the local function.  The next iteration of the function will derive new values for these variables from a newly incremented `frameCount` value.
 
-<div align="center"><iframe width=400 height=442 src="https://editor.p5js.org/capogreco/full/bGoOskBGe"></iframe></div>
+<iframe id="figure_of_eight" src="https://editor.p5js.org/capogreco/full/bGoOskBGe"></iframe>
+
+<script type="module">
+  const iframe  = document.getElementById (`figure_of_eight`)
+  iframe.width  = iframe.parentNode.clientWidth
+  iframe.height = iframe.parentNode.clientWidth + 42
+</script>
+
 
 <br>
 
