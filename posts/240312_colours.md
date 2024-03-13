@@ -5,13 +5,6 @@ snippet: various ways to use colour 🎨
 disable_html_sanitization: true
 ---
 
----
-layout     : post
-title      : "Colours in p5"
-date       : 2022-08-20
-categories : RMIT CCS
----
-
 I will note that it is "standard practice" to use American spellings for words like "colour" in the domain of computer science.  However, I can't quite bring myself to spell it "color" unless I absolutely need to.  Official javascript and p5 use the spelling "color", and when I have a choice about how to spell it, I usually choose to spell it "colour".
 
 ##  Using colour
