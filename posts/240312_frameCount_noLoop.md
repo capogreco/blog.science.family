@@ -1,7 +1,7 @@
 ---
 title      : frameCount & noLoop
 published_at: 2024-03-12
-snippet: iterating draw (& stopping)
+snippet: iterating draw (& stopping) 🤖
 disable_html_sanitization: true
 ---
 

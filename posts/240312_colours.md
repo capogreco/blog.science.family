@@ -17,12 +17,12 @@ All paradigms are [8-bit](https://en.wikipedia.org/wiki/8-bit_color), which mean
 
 Many colours can be passed into `color ()`, `fill ()`, or `background ()`, as strings.  Some current favourites of mine are `'turquoise'` and `'hotpink'`:
 
-<iframe id="pink_blob" width=400 height=442 src="https://editor.p5js.org/capogreco/full/qLnXZ2PBK"></iframe>
+<iframe id="pink_blob" src="https://editor.p5js.org/capogreco/full/qLnXZ2PBK"></iframe>
 
 <script type="module">
   const iframe = document.getElementById (`pink_blob`)
-  iframe.width  = iframe.parentNode.clientWidth
-  iframe.height = iframe.parentNode.clientWidth + 42
+  iframe.width  = iframe.parentNode.scrollWidth
+  iframe.height = iframe.parentNode.scrollWidth + 42
 </script>
 
 
