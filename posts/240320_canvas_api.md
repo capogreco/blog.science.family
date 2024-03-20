@@ -181,12 +181,12 @@ function draw_frame () {
 }
 ```
 
-<p align=CENTER> <canvas id='example_3'></canvas> </p>
+<canvas id='example_3'></canvas>
 
 <script>
     const cnv_3  = document.getElementById (`example_3`)
-    cnv_3.width  = 400
-    cnv_3.height = 400
+    cnv_3.width  = cnv_3.parentNode.scrollWidth
+    cnv_3.height = cnv_3.width * 9 / 16
     const ctx_3 = cnv_3.getContext (`2d`)
     ctx_3.fillStyle = `turquoise`
     ctx_3.fillRect (0, 0, cnv_3.width, cnv_3.height)
@@ -198,7 +198,7 @@ function draw_frame () {
         ctx_3.fillStyle = `hotpink`
         ctx_3.fillRect (x_pos_3, 150, 100, 100)
         x_pos_3 += 1
-        if (x_pos_3 > 400) {
+        if (x_pos_3 > cnv_3.width) {
             x_pos_3 = -100
         }
         requestAnimationFrame (draw_frame_3)
