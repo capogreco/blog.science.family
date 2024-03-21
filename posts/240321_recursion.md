@@ -5,25 +5,25 @@ snippet: like iteration, but better
 disable_html_sanitization: true
 ---
 
-<iframe  id='recursion'></iframe>
+<!-- <iframe  id='recursion'></iframe> -->
 
-<script>
+<!-- <script>
     const recursion_frame = document.getElementById ('recursion')
     recursion_frame.width = recursion_frame.parentNode.scrollWidth
     recursion_frame.height = recursion_frame.width
-    // const i = !location.search ? 1 :
-    //   Number (location.search.split ("?").pop ()) + 1
-    // if (i < 12) {
-    //     const path = `/240321_recursion?${ i }`
-    //     recursion_frame.src = `http://blog.science.family` + path
-    // }
-    // else {
-    //     recursion_frame.src = ''
-    // }
+    const i = !location.search ? 1 :
+      Number (location.search.split ("?").pop ()) + 1
+    if (i < 12) {
+        const path = `/240321_recursion?${ i }`
+        recursion_frame.src = `http://blog.science.family` + path
+    }
+    else {
+        recursion_frame.src = ''
+    }
     recursion_frame.src = 'https://blog.science.family/240321_interaction'
-</script>
+</script> -->
 
-```html
+<!-- ```html
 <iframe  id='recursion'></iframe>
 
 <script>
@@ -41,7 +41,7 @@ disable_html_sanitization: true
 
 *inspired by the Creative Coding Enhancement students at Preston High School 🚀 
 
-**also inspired by [this blog](https://www.bryanbraun.com/2021/03/24/infinitely-nested-iframes/) post by Bryan Braun 🤓
+**also inspired by [this blog](https://www.bryanbraun.com/2021/03/24/infinitely-nested-iframes/) post by Bryan Braun 🤓 -->
 
 ## To understand recursion
 
