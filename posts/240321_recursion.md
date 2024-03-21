@@ -11,15 +11,16 @@ disable_html_sanitization: true
     const recursion_frame = document.getElementById ('recursion')
     recursion_frame.width = recursion_frame.parentNode.scrollWidth
     recursion_frame.height = recursion_frame.width
-    const i = !location.search ? 1 :
-      Number (location.search.split ("?").pop ()) + 1
-    if (i < 12) {
-        const path = `/240321_recursion?${ i }`
-        recursion_frame.src = `http://blog.science.family` + path
-    }
-    else {
-        recursion_frame.src = ''
-    }
+    // const i = !location.search ? 1 :
+    //   Number (location.search.split ("?").pop ()) + 1
+    // if (i < 12) {
+    //     const path = `/240321_recursion?${ i }`
+    //     recursion_frame.src = `http://blog.science.family` + path
+    // }
+    // else {
+    //     recursion_frame.src = ''
+    // }
+    recursion_frame.src = 'https://blog.science.family/240321_interaction'
 </script>
 
 ```html
