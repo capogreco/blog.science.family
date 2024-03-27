@@ -1,7 +1,7 @@
 ---
-title: Canvas Example
-published_at: 2024-03-21
-snippet: an example using the canvas element
+title: Canvas API Examples
+published_at: 2024-03-27
+snippet: two examples using the canvas element
 disable_html_sanitization: true
 ---
 
