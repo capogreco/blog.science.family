@@ -1,7 +1,7 @@
 ---
 title: File Reader
-published_at: 2024-04-05
-snippet: managing files
+published_at: 2024-04-04
+snippet: wrangling files in javascript
 disable_html_sanitization: true
 ---
 
