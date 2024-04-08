@@ -51,10 +51,10 @@ disable_html_sanitization: true
       const rand_int = m => Math.floor (Math.random () * m)
       const find_i = c => ((c.y * cnv.width) + c.x) * 4 
 
-      const x = 250
-      const y = 100
+      const x = 355
+      const y = 290
       
-      for (let x_off = 0; x_off < 324; x_off++) {
+      for (let x_off = 0; x_off < 160; x_off++) {
          const positions = []
 
          for (let y_pos = y; y_pos < cnv.height; y_pos++) {
