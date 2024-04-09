@@ -162,7 +162,8 @@ export class PixelSorter {
             const g = this.img_data[p + 1]
             const b = this.img_data[p + 2]
             const a = this.img_data[p + 3]
-            unsorted.push ({ r, g, b, a, br: r * g * b })
+            const br = r * g * b
+            unsorted.push ({ r, g, b, a, br })
          })
 
          const sorted = quicksort (unsorted).reverse ()
