@@ -74,8 +74,8 @@ disable_html_sanitization: true
       const file_array = [ ...e.dataTransfer.files ]
 
       const reader = new FileReader ()
-      file_array.forEach (f => reader.readAsDataURL (f))
       reader.onload = d => start_draw (d.target.result)
+      file_array.forEach (f => reader.readAsDataURL (f))
 
       e.preventDefault ()
    }
