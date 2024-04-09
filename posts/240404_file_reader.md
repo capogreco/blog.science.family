@@ -95,3 +95,8 @@ disable_html_sanitization: true
 
 </script>
 ```
+Note the use of:
+- [File drag and drop](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop)
+- [FileReader: readAsDataURL ()](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL)
+- [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) (`condition ? if_true : if_false`).
+

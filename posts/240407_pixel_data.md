@@ -122,3 +122,8 @@ disable_html_sanitization: true
 
 </script>
 ```
+
+Note the use of:
+- [HTMLElement: .onload](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/load_event)
+- [Pixel manipulation with canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas)
+- [Pointer events](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events)
