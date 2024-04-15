@@ -19,7 +19,7 @@ disable_html_sanitization: true
 
    const img = new Image ()
 
-   img.onload = async () => {
+   img.onload = () => {
       cnv.height = cnv.width * (img.height / img.width)
       ctx.drawImage (img, 0, 0, cnv.width, cnv.height)
       sorter.init ()
@@ -73,7 +73,7 @@ disable_html_sanitization: true
 
    const img = new Image ()
 
-   img.onload = async () => {
+   img.onload = () => {
       cnv.height = cnv.width * (img.height / img.width)
       ctx.drawImage (img, 0, 0, cnv.width, cnv.height)
       sorter.init ()
