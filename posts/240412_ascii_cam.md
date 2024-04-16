@@ -8,9 +8,6 @@ disable_html_sanitization: true
 <div id="ascii_div"></div>
 
 <script type="module">
-   document.body.style.margin   = 0
-   document.body.style.overflow = `hidden`
-
    const stream = await navigator.mediaDevices.getUserMedia ({ 
       audio: false,
       video: true,
