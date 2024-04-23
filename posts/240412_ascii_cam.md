@@ -50,7 +50,7 @@ disable_html_sanitization: true
             const r = pixels[i]
             const g = pixels[i + 1]
             const b = pixels[i + 2]
-            const br = (r * g * b / 16581375) ** 0.1
+            const br = (r * g * b / 16581376) ** 0.1
             const char_i = Math.floor (br * chars.length)
             ascii_img += chars[char_i]
          }
