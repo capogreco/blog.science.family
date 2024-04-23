@@ -85,6 +85,8 @@ The library itself you can find [here](https://cdn.jsdelivr.net/npm/three@0.163.
 </script>
 ```
 
+## Using Addons `// IMPORTANT !!`
+
 Note that all addons, like `OrbitControls.js`, use the *import specifier* `'three'` by default:
 ```js
 // original OrbitControls.js, from:
@@ -105,10 +107,10 @@ import {
 
 /// ...
 ```
+
 ... but because we are not using an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) that tells the browser what to do with the import specifier `'three'`, this will throw an error.
 
 To make it work, we need to point those imports directly to our `three.js` script, which in my case looks like this:
-
 
 ```js
 // modified OrbitControls.js
