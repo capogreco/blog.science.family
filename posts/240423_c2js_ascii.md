@@ -5,14 +5,14 @@ snippet: example of combination
 disable_html_sanitization: true
 ---
 
+A combination of ideas from [here](https://blog.science.family/240412_ascii_cam), and [here](https://blog.science.family/240417_c2js_example).
+
 <script src="/scripts/c2.min.js"></script>
 
 <canvas id="c2"></canvas>
 <div id="ascii_div"></div>
 
 <script>
-   //Created by Ren Yuan
-
    const renderer = new c2.Renderer (document.getElementById ('c2'));
    resize ()
 
@@ -47,12 +47,6 @@ disable_html_sanitization: true
                this.y = renderer.height
                this.vy *= -1
          }
-      }
-
-      display () {
-         // renderer.stroke ('white')
-         // renderer.lineWidth (5)
-         // renderer.point (this.x, this.y);
       }
    }
 
@@ -91,13 +85,14 @@ disable_html_sanitization: true
       }
 
       for (let i = 0; i < agents.length; i++) {
-         agents[i].display ()
          agents[i].update ()
       }
+      
+      const w = renderer.canvas.width
+      const h = renderer.canvas.height
+      const pixels = renderer.context.getImageData (0, 0, w, h).data
 
       let ascii_img = ``
-
-      const pixels = renderer.context.getImageData (0, 0, renderer.canvas.width, renderer.canvas.height).data
 
       for (let y = 0; y < renderer.canvas.height; y += 22) {
          for (let x = 0; x < renderer.canvas.width; x += 10) {
@@ -105,7 +100,6 @@ disable_html_sanitization: true
             const r = pixels[i]
             const g = pixels[i + 1]
             const b = pixels[i + 2]
-            // const br = Math.min ((r * g * b / 16581376) ** 0.1, 0.999)
             const br = (r * g * b / 16581376) ** 0.1
             const char_i = Math.floor (br * chars.length)
             ascii_img += chars[char_i]
@@ -126,12 +120,12 @@ disable_html_sanitization: true
 <br>
 
 ```html
+<script src="/scripts/c2.min.js"></script>
+
 <canvas id="c2"></canvas>
 <div id="ascii_div"></div>
 
 <script>
-   //Created by Ren Yuan
-
    const renderer = new c2.Renderer (document.getElementById ('c2'));
    resize ()
 
@@ -166,12 +160,6 @@ disable_html_sanitization: true
                this.y = renderer.height
                this.vy *= -1
          }
-      }
-
-      display () {
-         // renderer.stroke ('white')
-         // renderer.lineWidth (5)
-         // renderer.point (this.x, this.y);
       }
    }
 
@@ -210,13 +198,14 @@ disable_html_sanitization: true
       }
 
       for (let i = 0; i < agents.length; i++) {
-         agents[i].display ()
          agents[i].update ()
       }
+      
+      const w = renderer.canvas.width
+      const h = renderer.canvas.height
+      const pixels = renderer.context.getImageData (0, 0, w, h).data
 
       let ascii_img = ``
-
-      const pixels = renderer.context.getImageData (0, 0, renderer.canvas.width, renderer.canvas.height).data
 
       for (let y = 0; y < renderer.canvas.height; y += 22) {
          for (let x = 0; x < renderer.canvas.width; x += 10) {
@@ -224,7 +213,6 @@ disable_html_sanitization: true
             const r = pixels[i]
             const g = pixels[i + 1]
             const b = pixels[i + 2]
-            // const br = Math.min ((r * g * b / 16581376) ** 0.1, 0.999)
             const br = (r * g * b / 16581376) ** 0.1
             const char_i = Math.floor (br * chars.length)
             ascii_img += chars[char_i]
