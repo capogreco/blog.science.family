@@ -9,9 +9,9 @@ WebSockets is a way for a client instance of a website to communicate with the s
 
 >   The WebSocket API is an advanced technology that makes it possible to open a two-way interactive communication session between the user's browser and a server. 
 
-This is typically used for features like chat-boxes, that require instantaneous communication.  In this post we will develop the Deno server we created in the [last post]({% post_url 2022-09-29-deno %}) into a collaborative, pink-square-drawing, net-art type-thing.
+This is typically used for features like chat-boxes, that require instantaneous communication.  In this post we will develop the Deno server we created in the [last post](https://blog.science.family/240508_deno) into a collaborative, pink-square-drawing, net-art type-thing.
 
-Picking up where we left off in [the previous post]({% post_url 2022-09-29-deno %}), our file structure should look like this:
+Picking up where we left off in [the previous post](https://blog.science.family/240508_deno), our file structure should look like this:
 
 ```
 deno_server
