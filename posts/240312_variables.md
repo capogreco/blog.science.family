@@ -78,7 +78,7 @@ function draw () {
 
 <details>
     <summary>Answer</summary>
-    In the last line of the code, we are trying to reassign the value of an immutable variable, ie. declared with `const`.
+    In the last line of the code, we are trying to reassign the value of an immutable variable, ie. declared with const.
 </details>
 
 <br>
