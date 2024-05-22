@@ -93,11 +93,18 @@ get_vibraphone ()
 // we are name the argument mouse_event
 // so we can refer to the mouse event
 // the .onclick method passes in
-function click_handler (mouse_event) { 
+function click_handler (mouse_event) {
+
     if (audio_context.state == 'suspended') {
+
+        // first click resumes audio_context
         audio_context.resume ()
+
+        // & changes the background colour
         document.body.bgColor = `forestgreen`
+
     } else {
+
         // mouse_event has the coordinates
         // of the mouse position stored in it
         // as .clientX and .clientY properties
