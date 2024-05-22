@@ -60,7 +60,7 @@ document.onclick = click_handler
 
 Here we have used a click interaction to resume the audio context, as evidenced below.  The first read out of the `AudioContext` object was rendered to the console pre-click, and the second, post-click.  Note the difference in the 'state' property:
 
-![audio context suspended, then running](/etc/images/audio_context_running.png)
+![audio context suspended, then running](/240320/audio_context_running.png)
 
 ##  Loading an audio file
 
@@ -122,7 +122,7 @@ async function get_vibraphone () {
     // we are storing in the global variable
     // the result of a three step process
     // the first part fetches the file
-    vibraphone_buffer = await fetch ("vibraphone_note.wav")
+    vibraphone_buffer = await fetch (`/samples/vibraphone_note.wav`)
 
         // the second step formats the binary data
         // in an array
@@ -185,7 +185,7 @@ function click_handler (e) {
     }
 }
 async function get_vibraphone () {
-    vibraphone_buffer = await fetch ("/etc/samples/vibraphone_note.wav")
+    vibraphone_buffer = await fetch ("/samples/vibraphone_note.wav")
         .then (response => response.arrayBuffer ())
         .then (buffer => audio_context.decodeAudioData (buffer))
 }
