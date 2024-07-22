@@ -16,7 +16,6 @@ disable_html_sanitization: true
 
 ## Using the GitHub Online Editor
 Pressing `.` (full stop) on your keyboard while your browser is at your GitHub repo will open the [Github Web Editor](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor)
-   - alternatively, if you have [VS Code](https://code.visualstudio.com/) installed on your computer, you can access your repository in much the same way by installing the [GitHub Repositories](https://marketplace.visualstudio.com/items?itemName=GitHub.remotehub) extension
 
 ## Writing Markdown
 - each `.md` file in the `posts` folder represents a blog post
