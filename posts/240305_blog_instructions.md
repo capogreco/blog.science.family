@@ -33,6 +33,17 @@ Pressing `.` (full stop) on your keyboard while your browser is at your GitHub r
 - to save your changes you need to **add**, **commit**, and **push** them to your repo.  You can do this by presing the Source Control button on the left, which should look something like this: ![Source Control icon](/240305_blog_instructions/source_control.png)
 - add a short but desciptive message about the changes you made, and press "Commit"
 
+## Deno Deploy
+Unfortunately, if you have just made a brand new GitHub acccount, Deno Deploy will make you wait a week before letting you sign in.  
+
+1. if you are able to, go to [Deno Deploy](https://deno.com/deploy) and click "Sign in"
+2. click "New Project"
+3. select your GitHub username from the "Select User or Organisation" drop-down menu
+4. select your blog repo from the "Select Repository" drop-down menu
+5. click "Create & Deploy"
+6. once deployed, the URLs of your deployed blog should be visible.  You can go to the site by clicking "View"
+7. Deno automatically updates the site any time you commit & push changes to your GitHub repo.
+
 ## Building locally
 In order to build locally you will need a few things installed on your computer.  
 - macOS
@@ -50,7 +61,11 @@ In order to build locally you will need a few things installed on your computer.
    3. install [VSCode](https://code.visualstudio.com/)
 
 ### Git
-Once you have Git installed on your computer, you should be able to make a local version of your GitHub repository by executing this line of code in a terminal (macOS) or PowerShell (Windows):
+Once you have Git installed on your computer, set your username and email by entering:
+- `git config --global user.name "your_username"
+- `git config --global user.email "MY_NAME@example.com"
+
+At this point you should be able to make a local version of your GitHub repository by executing this line of code in a terminal (macOS) or PowerShell (Windows):
 - `git clone https://github.com/user_name/repo_name`
 - it may ask you for your credentials at this point, but if you installed Git Credential Manager installed, you should only need to do this step once.
 - once you have made changes to the local repo, you can commit and push those changes by executing from the root folder of your local repo:
@@ -71,16 +86,6 @@ Once you have VSCode installed, you can open your repo by executing from the roo
 - once inside VSCode you can make changes to the files, make new files / folders, etc.
 - you can also push to GitHub from inside VSCode by pressing "Source Control", giving a commit message, and pressing "Commit", and then "Sync Changes"
 
-## Deno Deploy
-Unfortunately, if you have just made a brand new GitHub acccount, Deno Deploy will make you wait a week before letting you sign in.  
-
-1. if you are able to, go to [Deno Deploy](https://deno.com/deploy) and click "Sign in"
-2. click "New Project"
-3. select your GitHub username from the "Select User or Organisation" drop-down menu
-4. select your blog repo from the "Select Repository" drop-down menu
-5. click "Create & Deploy"
-6. once deployed, the URLs of your deployed blog should be visible.  You can go to the site by clicking "View"
-7. Deno automatically updates the site any time you commit & push changes to your GitHub repo.
 
 
 
