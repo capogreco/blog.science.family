@@ -62,8 +62,8 @@ In order to build locally you will need a few things installed on your computer.
 
 ### Git
 Once you have Git installed on your computer, set your username and email by entering:
-- `git config --global user.name "your_username"
-- `git config --global user.email "MY_NAME@example.com"
+- `git config --global user.name "your_username"`
+- `git config --global user.email "MY_NAME@example.com"`
 
 At this point you should be able to make a local version of your GitHub repository by executing this line of code in a terminal (macOS) or PowerShell (Windows):
 - `git clone https://github.com/user_name/repo_name`
