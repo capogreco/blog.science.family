@@ -37,8 +37,15 @@ let shading
 let teapot, textureCube
 const materials = {}
 
+const rand_tess = () => {
+   const vals = [ 20, 30, 40, 50 ]
+   const i = Math.floor (Math.random () * vals.length)
+   return vals[i]
+}
+
 init ()
-render ()
+// render ()
+
 
 function init() {
 
@@ -62,11 +69,11 @@ function init() {
    container.appendChild (renderer.domElement)
 
    // EVENTS
-   window.addEventListener ('resize', onWindowResize)
+   // window.addEventListener ('resize', onWindowResize)
 
    // CONTROLS
    cameraControls = new OrbitControls (camera, renderer.domElement)
-   cameraControls.addEventListener ('change', render)
+   // cameraControls.addEventListener ('change', render)
 
    // TEXTURE MAP
    const textureMap = new THREE.TextureLoader ()
@@ -120,7 +127,7 @@ function init() {
    scene.add( light );
 
    effectController = {
-      newTess: 15,
+      newTess: rand_tess (),
       bottom: true,
       lid: true,
       body: true,
@@ -130,72 +137,28 @@ function init() {
    };
 }
 
-// EVENT HANDLERS
-function onWindowResize () {
-   const w = container.parentNode.scrollWidth
-   const h = w * 9 / 16
+let material = materials[ 'wireframe' ] 
 
-   renderer.setSize (w, h)
-   camera.aspect = 16 / 9
-   camera.updateProjectionMatrix ()
 
-   render ()
-}
 
-// function setupGui() {
-//    effectController = {
-//       newTess: 15,
-//       bottom: true,
-//       lid: true,
-//       body: true,
-//       fitLid: false,
-//       nonblinn: false,
-//       newShading: 'glossy'
-//    };
+// function render() {
+//    if (effectController.newTess !== tess ||
+//       effectController.bottom !== bBottom ||
+//       effectController.lid !== bLid ||
+//       effectController.body !== bBody ||
+//       effectController.fitLid !== bFitLid ||
+//       effectController.nonblinn !== bNonBlinn ||
+//       effectController.newShading !== shading ) {
 
-//    const gui = new GUI({ 
-//       container,
-//       width: 200,
-//    });
+//       tess = effectController.newTess;
+//       bBottom = effectController.bottom;
+//       bLid = effectController.lid;
+//       bBody = effectController.body;
+//       bFitLid = effectController.fitLid;
+//       bNonBlinn = effectController.nonblinn;
+//       shading = effectController.newShading;
 
-//    gui.add( effectController, 'newTess', [ 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 50 ] ).name( 'Tessellation Level' ).onChange( render );
-//    gui.add( effectController, 'lid' ).name( 'display lid' ).onChange( render );
-//    gui.add( effectController, 'body' ).name( 'display body' ).onChange( render );
-//    gui.add( effectController, 'bottom' ).name( 'display bottom' ).onChange( render );
-//    gui.add( effectController, 'fitLid' ).name( 'snug lid' ).onChange( render );
-//    gui.add( effectController, 'nonblinn' ).name( 'original scale' ).onChange( render );
-//    gui.add( effectController, 'newShading', [ 'wireframe', 'flat', 'smooth', 'glossy', 'textured', 'reflective' ] ).name( 'Shading' ).onChange( render );
-// }
-
-function render() {
-   if (effectController.newTess !== tess ||
-      effectController.bottom !== bBottom ||
-      effectController.lid !== bLid ||
-      effectController.body !== bBody ||
-      effectController.fitLid !== bFitLid ||
-      effectController.nonblinn !== bNonBlinn ||
-      effectController.newShading !== shading ) {
-
-      tess = effectController.newTess;
-      bBottom = effectController.bottom;
-      bLid = effectController.lid;
-      bBody = effectController.body;
-      bFitLid = effectController.fitLid;
-      bNonBlinn = effectController.nonblinn;
-      shading = effectController.newShading;
-
-      // createNewTeapot();
-   }
-
-   // skybox is rendered separately, so that it is always behind the teapot.
-   if ( shading === 'reflective' ) {
-      scene.background = textureCube
-   } else {
-      scene.background = null
-   }
-
-   renderer.render (scene, camera)
-}
+//    }}
 
 const mutate_geometry = (g, p) => {
    const p_is_positive = p >= 0.5
@@ -227,18 +190,19 @@ const mutate_geometry = (g, p) => {
 let next_glitch_time = 0
 let is_glitching = false
 let geometry = new TeapotGeometry (
-   teapotSize,
-   tess,
-   effectController.bottom,
-   effectController.lid,
-   effectController.body,
-   effectController.fitLid,
-   !effectController.nonblinn
+   300, // teapotSize
+   50,  // tess
+   true,
+   true,
+   true,
+   false,
+   false,
 )
 
 
 // Whenever the teapot changes, the scene is rebuilt from scratch (not much to it).
-function draw_teapot (ms) {
+const draw_teapot = ms => {
+
    if (teapot !== undefined) {
       teapot.geometry.dispose ()
       scene.remove (teapot)
@@ -255,23 +219,44 @@ function draw_teapot (ms) {
       if (is_glitching) {
          mutate_geometry (geometry, Math.random ())
       }
+
       else {
          geometry = new TeapotGeometry (
             teapotSize,
-            tess,
-            effectController.bottom,
-            effectController.lid,
-            effectController.body,
-            effectController.fitLid,
-            !effectController.nonblinn
+            rand_tess (), // tess,
+            Math.random () < 0.8,
+            Math.random () < 0.8,
+            true,
+            true, //Math.random () < 0.5,
+            true  //Math.random () < 0.5
          )
+
+         const types = [ 
+            `wireframe`, 
+            `flat`, 
+            `smooth`, 
+            `glossy`, 
+            `textured`, 
+            `reflective` 
+         ]
+         const i = Math.floor (Math.random () * types.length)
+         const type = types[i]
+         material = materials[type]
+
+         scene.background = type == `reflective` 
+            ? textureCube
+            : null
+
       }
    }
 
-   teapot = new THREE.Mesh (geometry, materials[ shading ])
+   teapot = new THREE.Mesh (geometry, material)
    scene.add (teapot)
 
-   render ()
+   // render ()
+
+
+   renderer.render (scene, camera)
 
    requestAnimationFrame (draw_teapot)
 }
