@@ -1,5 +1,5 @@
 ---
-title: Three.js Teapot Example
+title: Glitchy Teapot
 published_at: 2025-04-08
 snippet: rendering a teapot with three.js
 disable_html_sanitization: true
