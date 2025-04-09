@@ -511,7 +511,12 @@ Often we might want things to happen once and then disappear, rather than contin
          }
 
          // create envelope with lo-fi triangle alg
-         const env = 1 - Math.abs (p * 2 - 1)
+         // const env = 1 - Math.abs (p * 2 - 1)
+
+         let env = Math.cos (p * Math.PI * 2) // [ -1, 1 ]
+         env += 1 // [ 0, 2 ]
+         env /= 2 // [ 0, 1 ]
+         env = 1 - env // flip env to start at 0
 
          // calculate current side length
          const l = this.size * env
@@ -528,11 +533,25 @@ Often we might want things to happen once and then disappear, rather than contin
    const blinkers = []
    const remove = []
 
-   cnv.onpointerdown = e => blinkers.push (new Blinker ({
-      x: e.offsetX,
-      y: e.offsetY
-   }, 3, 50))
+   let pointer_is_down = false
 
+   cnv.onpointerdown = e => {
+      pointer_is_down = true
+   }
+
+   cnv.onpointerup = e => {
+      pointer_is_down = false
+   }
+
+   cnv.onpointermove = e => {
+      if (pointer_is_down) {
+         const period = 3
+         blinkers.push (new Blinker ({
+            x: e.offsetX,
+            y: e.offsetY
+         }, period, 20))
+      }
+   }
    const draw_frame = ms => {
       ctx.fillStyle = `turquoise`
       ctx.fillRect (0, 0, cnv.width, cnv.height)
