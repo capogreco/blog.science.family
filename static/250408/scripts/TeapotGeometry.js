@@ -4,7 +4,7 @@ import {
 	Matrix4,
 	Vector3,
 	Vector4
-} from "/250408/three.js/build/three.module.js";
+} from "/250408/scripts/three.module.js";
 
 /**
  * Tessellates the famous Utah teapot database by Martin Newell into triangles.
