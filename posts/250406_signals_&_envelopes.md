@@ -513,6 +513,7 @@ Often we might want things to happen once and then disappear, rather than contin
          // create envelope with lo-fi triangle alg
          // const env = 1 - Math.abs (p * 2 - 1)
 
+         // create cosine envelope:
          let env = Math.cos (p * Math.PI * 2) // [ -1, 1 ]
          env += 1 // [ 0, 2 ]
          env /= 2 // [ 0, 1 ]
@@ -581,6 +582,7 @@ Often we might want things to happen once and then disappear, rather than contin
    }
 
    requestAnimationFrame (draw_frame)
+
 </script>
 
 <script type="module">

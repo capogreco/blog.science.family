@@ -99,8 +99,6 @@ scene.add (light)
 let material = materials[ 'wireframe' ] 
 
 const mutate_geometry = (g, p) => {
-   const p_is_positive = p >= 0.5
-
    const length = g.index.array.length
    const glitch_amount = Math.abs ((p * 2) - 1) ** 5
    const glitch_length = Math.floor (glitch_amount * length)   
@@ -108,7 +106,7 @@ const mutate_geometry = (g, p) => {
       Math.random () * (length - glitch_length)
    )
 
-   const mutation = p_is_positive
+   const mutation = p >= 0.5
       ? () => Math.floor (Math.random () * 8192)
       : () => 0
 
