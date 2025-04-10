@@ -69,6 +69,7 @@ const materials = {
 
 const rand_el = a => a[Math.floor (Math.random () * a.length)]
 
+// random tessellation amount
 const rand_tess = () => rand_el ([ 20, 30, 40, 50 ])
 
 // CAMERA
@@ -107,7 +108,11 @@ const mutate_geometry = (g, p) => {
    )
 
    const mutation = p >= 0.5
+      // 65536
+      // 8192 is 2 ** 13
+      // largest number not to give errors
       ? () => Math.floor (Math.random () * 8192)
+      // ? () => Math.floor (Math.random () * 65536)
       : () => 0
 
    const front = g.index.array.slice (0, glitch_location)
