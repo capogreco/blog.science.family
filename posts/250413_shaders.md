@@ -7,9 +7,7 @@ disable_html_sanitization: true
 
 # What are Shaders?
 
-Shaders are small programs that run on your GPU (Graphics Processing Unit) instead of your CPU. They're used to calculate how pixels should be colored on the screen. What makes shaders special is that they run in parallel - processing thousands or millions of pixels simultaneously rather than one at a time.
-
-Think of your GPU as a giant calculator with hundreds of tiny processors all working at once. Each one might be slower than your main CPU, but together they can perform incredible feats of computation.
+Shaders are small programs that run on your GPU (Graphics Processing Unit) instead of your CPU. They're used to calculate how pixels should be colored on the screen. What makes shaders special is that they run in parallel - processing thousands or millions of pixels simultaneously on the GPU rather than one at a time on the CPU.
 
 # Shaders in Three.js
 
@@ -394,7 +392,7 @@ p5.js also supports shaders, making GPU-based graphics accessible to beginners. 
          `
          
          // Load the shader
-         theShader = await p.createShader (vertexShader, fragmentShader)
+         theShader = p.createShader (vertexShader, fragmentShader)
       }
       
       p.setup = () => {
@@ -748,8 +746,6 @@ Moiré patterns occur when two similar patterns are overlaid with a slight diffe
    - Moving one pattern's center
    - Changing one pattern's frequency
 
-These techniques allow you to create captivating visual effects that respond to time or user interaction, making them perfect for creative coding and interactive designs.
-
 # Code and Concept References
 
 The examples in this tutorial draw inspiration and knowledge from several excellent sources:
@@ -777,7 +773,7 @@ The examples in this tutorial draw inspiration and knowledge from several excell
 
 # Resources for Learning More
 
-Interested in learning more about shaders? Here are some great resources:
+More resources:
 
 - [The Book of Shaders](https://thebookofshaders.com/) - A gentle step-by-step guide
 - [Shadertoy](https://www.shadertoy.com/) - See and experiment with amazing shaders
@@ -785,4 +781,3 @@ Interested in learning more about shaders? Here are some great resources:
 - [Inigo Quilez's Articles](https://iquilezles.org/articles/) - Deep dives into shader mathematics
 - [ShaderToy: Art of Code](https://www.youtube.com/c/TheArtofCodeIsCool) - YouTube channel with excellent shader tutorials
 
-Happy coding with the GPU!
