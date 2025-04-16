@@ -325,105 +325,111 @@ GLSL has many useful built-in functions:
 
 p5.js also supports shaders, making GPU-based graphics accessible to beginners. Let's create a simple p5.js shader example:
 
-<div id="p5_shader_container"></div>
-<div id="p5_shader_code"></div>
+<!-- <div id="p5_shader_container"></div> -->
+<canvas id="p5_canvas"></canvas>
 
 <script id="p5_shader_script" type="module">
-   // import codeblockRenderer from "/scripts/codeblock_renderer.js"
-   // import p5 from "/scripts/p5.esm.js"
-   
-   // const sketch = p => {
-   //    console.log (p.createShader)
-   //    let theShader
-      
-   //    p.preload = () => {
+   import p5 from 'https://cdn.jsdelivr.net/npm/p5@1.11.3/+esm'
+   import codeblockRenderer from "/scripts/codeblock_renderer.js"
 
-   //       // Define the shaders as strings
-   //       const vertexShader = `
-   //          attribute vec3 aPosition;
-   //          attribute vec2 aTexCoord;
-            
-   //          varying vec2 vTexCoord;
-            
-   //          void main() {
-   //             vTexCoord = aTexCoord;
-   //             vec4 positionVec4 = vec4(aPosition, 1.0);
-   //             positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
-   //             gl_Position = positionVec4;
-   //          }
-   //       `
-         
-   //       const fragmentShader = `
-   //          precision mediump float;
-            
-   //          varying vec2 vTexCoord;
-   //          uniform vec2 u_resolution;
-   //          uniform float u_time;
-   //          uniform vec2 u_mouse;
-            
-   //          float circle(vec2 st, float radius, vec2 center) {
-   //             vec2 dist = st - center;
-   //             return 1.0 - smoothstep(radius - 0.01, radius + 0.01, dot(dist, dist) * 4.0);
-   //          }
-            
-   //          void main() {
-   //             vec2 st = vTexCoord;
-               
-   //             // Create a gradient background
-   //             vec3 bg = vec3(st.x, st.y, 0.5);
-               
-   //             // Interactive circle that follows the mouse
-   //             float mouseBall = circle(st, 0.1, u_mouse);
-   //             vec3 mouseBallColor = vec3(1.0, 0.2, 0.6);
-               
-   //             // Time-based animated circles
-   //             float t = u_time * 0.5;
-   //             float pulse = sin(t) * 0.5 + 0.5;
-   //             float circle1 = circle(st, 0.2 * pulse, vec2(0.3, 0.3));
-   //             float circle2 = circle(st, 0.1 * (1.0 - pulse), vec2(0.7, 0.7));
-               
-   //             // Blend all elements together
-   //             vec3 color = bg;
-   //             color = mix(color, vec3(0.0, 0.8, 0.8), circle1);
-   //             color = mix(color, vec3(1.0, 0.8, 0.0), circle2);
-   //             color = mix(color, mouseBallColor, mouseBall);
-               
-   //             gl_FragColor = vec4(color, 1.0);
-   //          }
-   //       `
-         
-   //       // Load the shader
-   //       theShader = p.createShader (vertexShader, fragmentShader)
-   //    }
+   const cnv = document.getElementById (`p5_canvas`)
+   
+   const sketch = p => {
+      let theShader
       
-   //    p.setup = () => {
-   //       // Create a canvas that fills the container
-   //       const container = document.getElementById ('p5_shader_container')
-   //       const width = container.offsetWidth
-   //       const height = width * 9 / 16
-   //       p.createCanvas (width, height, p.WEBGL)
-   //       p.noStroke ()
-   //    }
+      p.preload = () => {
+
+         // Define the shaders as strings
+         const vertexShader = `
+            attribute vec3 aPosition;
+            attribute vec2 aTexCoord;
+            
+            varying vec2 vTexCoord;
+            
+            void main () {
+               vTexCoord = aTexCoord;
+               vec4 positionVec4 = vec4 (aPosition, 1.0);
+               positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+               gl_Position = positionVec4;
+            }
+         `
+         
+         const fragmentShader = `
+            precision mediump float;
+            
+            varying vec2 vTexCoord;
+            uniform vec2 u_resolution;
+            uniform float u_time;
+            uniform vec2 u_mouse;
+            
+            float circle (vec2 st, float radius, vec2 center) {
+               vec2 dist = st - center;
+               return 1.0 - smoothstep (
+                  radius - 0.01, 
+                  radius + 0.01, 
+                  dot (dist, dist) * 4.0
+               );
+            }
+            
+            void main () {
+               vec2 st = vTexCoord;
+               
+               // Create a gradient background
+               vec3 bg = vec3 (st.x, st.y, 0.5);
+               
+               // Interactive circle that follows the mouse
+               float mouseBall = circle (st, 0.1, u_mouse);
+               vec3 mouseBallColor = vec3 (1.0, 0.2, 0.6);
+               
+               // Time-based animated circles
+               float t = u_time * 0.5;
+               float pulse = sin (t) * 0.5 + 0.5;
+               float circle1 = circle (st, 0.2 * pulse, vec2 (0.3, 0.3));
+               float circle2 = circle (st, 0.1 * (1.0 - pulse), vec2 (0.7, 0.7));
+               
+               // Blend all elements together
+               vec3 color = bg;
+               color = mix (color, vec3 (0.0, 0.8, 0.8), circle1);
+               color = mix (color, vec3 (1.0, 0.8, 0.0), circle2);
+               color = mix (color, mouseBallColor, mouseBall);
+               
+               gl_FragColor = vec4 (color, 1.0);
+            }
+         `
+         
+         // Load the shader
+         theShader = p.createShader (vertexShader, fragmentShader)
+      }
       
-   //    p.draw = () => {
-   //       // Shader uniforms can be set with setUniform
-   //       theShader.setUniform ("u_resolution", [p.width, p.height])
-   //       theShader.setUniform ("u_time", p.millis () / 1000.0)
-   //       theShader.setUniform ("u_mouse", [p.mouseX / p.width, 1.0 - p.mouseY / p.height])
+      p.setup = () => {
+         const w = cnv.parentNode.scrollWidth
+         const h = w * 9 / 16         
+         p.createCanvas (w, h, p.WEBGL, cnv)
+         p.noStroke ()
+      }
+      
+      p.draw = () => {
+         // Shader uniforms can be set with setUniform
+         theShader.setUniform ("u_resolution", [p.width, p.height])
+         theShader.setUniform ("u_time", p.millis () * 0.001)
+         theShader.setUniform ("u_mouse", [
+            p.mouseX / p.width, 
+            1.0 - p.mouseY / p.height
+         ])
          
-   //       // Apply the shader
-   //       p.shader (theShader)
+         // Apply the shader
+         p.shader (theShader)
          
-   //       // Draw a rectangle covering the entire canvas
-   //       p.rect(0, 0, p.width, p.height)
-   //    }
-   // }
+         // Draw a rectangle covering the entire canvas
+         p.rect(0, 0, p.width, p.height)
+      }
+   }
    
    // // Create the p5 instance and attach it to the container
-   // new p5 (sketch, 'p5_shader_container')
+   new p5 (sketch)
    
    // // Render the code for the p5 sketch
-   // codeblockRenderer (document, "p5_shader_script", "p5_shader_code")
+   codeblockRenderer (document, "p5_shader_script", "p5_canvas")
 </script>
 
 In this p5.js example:
