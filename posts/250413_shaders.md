@@ -28,10 +28,10 @@ Let's start with a simple example using Three.js to create a shader that animate
    
    const div = document.getElementById ("shader_example")
    const width = div.parentNode.scrollWidth
-   const height = width * 9 / 16
+   const height = Math.floor (width * 9 / 16)
    
    // Basic three.js setup
-   const scene = new THREE.Scene()
+   const scene = new THREE.Scene ()
    const camera = new THREE.PerspectiveCamera (70, width / height, 0.01, 10)
    camera.position.z = 1
    
@@ -47,15 +47,15 @@ Let's start with a simple example using Three.js to create a shader that animate
          u_time: { value: 0.0 }
       },
       vertexShader: `
-         void main() {
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+         void main () {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4 (position, 1.0);
          }
       `,
       fragmentShader: `
          uniform float u_time;
          
-         void main() {
-            vec2 uv = gl_FragCoord.xy / vec2(${ width }.0, ${ height }.0);
+         void main () {
+            vec2 uv = gl_FragCoord.xy / vec2 (${ width }.0, ${ height }.0);
             
             // Create a pulsing effect based on time
             float r = 0.5 + 0.5 * sin (u_time + uv.x * 6.0);
@@ -73,8 +73,8 @@ Let's start with a simple example using Three.js to create a shader that animate
    scene.add (mesh)
    
    // Animation loop
-   renderer.setAnimationLoop (time => {
-      shaderMaterial.uniforms.u_time.value = time * 0.001
+   renderer.setAnimationLoop (ms => {
+      shaderMaterial.uniforms.u_time.value = ms * 0.001
       renderer.render (scene, camera)
    })
    
@@ -89,31 +89,31 @@ Let's break down what's happening in our fragment shader:
 ```glsl
 uniform float u_time;
 
-void main() {
-   vec2 uv = gl_FragCoord.xy / vec2(${width}.0, ${height}.0);
+void main () {
+   vec2 uv = gl_FragCoord.xy / vec2 (${ width }.0, ${ height }.0);
    
    // Create a pulsing effect based on time
-   float r = 0.5 + 0.5 * sin(u_time + uv.x * 6.0);
-   float g = 0.5 + 0.5 * sin(u_time + uv.y * 6.0);
-   float b = 0.5 + 0.5 * sin(u_time + uv.x * 2.0 + uv.y * 2.0);
+   float r = 0.5 + 0.5 * sin (u_time + uv.x * 6.0);
+   float g = 0.5 + 0.5 * sin (u_time + uv.y * 6.0);
+   float b = 0.5 + 0.5 * sin (u_time + uv.x * 2.0 + uv.y * 2.0);
    
-   gl_FragColor = vec4(r, g, b, 1.0);
+   gl_FragColor = vec4 (r, g, b, 1.0);
 }
 ```
 
 Here's what each part does:
 
-1. `uniform float u_time;` - A uniform is a value we pass from JavaScript into our shader. In this case, we're passing the current time.
+1. `uniform float u_time;` - a **uniform** is a value we pass from JavaScript into our shader. Here we're passing in the current time, in seconds.
 
-2. `vec2 uv = gl_FragCoord.xy / vec2(${width}.0, ${height}.0);` - This creates normalized coordinates (0 to 1) across our canvas. `gl_FragCoord.xy` gives us the pixel position.
+2. `vec2 uv = gl_FragCoord.xy / vec2(${width}.0, ${height}.0);` - this creates normalized coordinates (0 to 1) across our canvas. `gl_FragCoord.xy` gives us the pixel position.
 
-3. The `r`, `g`, and `b` variables - We use sine waves to create pulsing color values. By adding `u_time`, the colors change over time. The `* 6.0` parts change how quickly the colors cycle across the screen.
+3. The `r`, `g`, and `b` variables - we use time-driven sinusoids to create pulsing color values. The `* 6.0` parts change how quickly the colors cycle across the screen.
 
-4. `gl_FragColor = vec4(r, g, b, 1.0);` - This sets the final color of the pixel. The 1.0 at the end is the alpha (opacity) value.
+4. `gl_FragColor = vec4 (r, g, b, 1.0);` - This sets the final color of the pixel. The 1.0 at the end is an alpha value.
 
 # Adding Interactions
 
-Let's make a more exciting shader that responds to mouse movement:
+Let's make a shader that responds to mouse movement:
 
 <div id="interactive_shader"></div>
 <div id="interactive_shader_code"></div>
@@ -124,10 +124,10 @@ Let's make a more exciting shader that responds to mouse movement:
    
    const div = document.getElementById ("interactive_shader")
    const width = div.parentNode.scrollWidth
-   const height = width * 9 / 16
+   const height = Math.floor (width * 9 / 16)
    
    // Basic three.js setup
-   const scene = new THREE.Scene()
+   const scene = new THREE.Scene ()
    const camera = new THREE.PerspectiveCamera (70, width / height, 0.01, 10)
    camera.position.z = 1
    
@@ -136,71 +136,71 @@ Let's make a more exciting shader that responds to mouse movement:
    div.appendChild (renderer.domElement)
    
    // Track mouse position
-   const mouse = new THREE.Vector2(0.5, 0.5)
-   div.addEventListener('mousemove', (event) => {
-      const rect = renderer.domElement.getBoundingClientRect()
+   const mouse = new THREE.Vector2 (0.5, 0.5)
+   div.addEventListener('mousemove', event => {
+      const rect = renderer.domElement.getBoundingClientRect ()
       mouse.x = (event.clientX - rect.left) / width
       mouse.y = 1.0 - (event.clientY - rect.top) / height  // Invert Y coordinate
    })
    
    // Ripple shader material
-   const shaderMaterial = new THREE.ShaderMaterial({
+   const shaderMaterial = new THREE.ShaderMaterial ({
       uniforms: {
          u_time: { value: 0.0 },
          u_mouse: { value: mouse }
       },
       vertexShader: `
-         void main() {
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+         void main () {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4 (position, 1.0);
          }
       `,
       fragmentShader: `
          uniform float u_time;
          uniform vec2 u_mouse;
          
-         void main() {
-            vec2 uv = gl_FragCoord.xy / vec2(${width}.0, ${height}.0);
+         void main () {
+            vec2 uv = gl_FragCoord.xy / vec2 (${width}.0, ${height}.0);
             
             // Distance from mouse position
-            float dist = distance(uv, u_mouse);
+            float dist = distance (uv, u_mouse);
             
             // Create ripples from the mouse position
-            float ripple = sin(dist * 50.0 - u_time * 5.0) * 0.5 + 0.5;
+            float ripple = sin (dist * 50.0 - u_time * 5.0) * 0.5 + 0.5;
             
             // Fade out the ripple with distance
-            ripple *= smoothstep(0.5, 0.0, dist);
+            ripple *= smoothstep (0.5, 0.0, dist);
             
             // Base color (turquoise)
-            vec3 baseColor = vec3(0.0, 0.8, 0.8);
+            vec3 baseColor = vec3 (0.0, 0.8, 0.8);
             
             // Add ripple effect (deeppink)
-            vec3 rippleColor = vec3(1.0, 0.0, 0.5);
-            vec3 finalColor = mix(baseColor, rippleColor, ripple);
+            vec3 rippleColor = vec3 (1.0, 0.0, 0.5);
+            vec3 finalColor = mix (baseColor, rippleColor, ripple);
             
-            gl_FragColor = vec4(finalColor, 1.0);
+            gl_FragColor = vec4 (finalColor, 1.0);
          }
       `
    })
    
    // Create a simple plane to display our shader
-   const geometry = new THREE.PlaneGeometry(1.6, 0.9)
-   const mesh = new THREE.Mesh(geometry, shaderMaterial)
-   scene.add(mesh)
+   const geometry = new THREE.PlaneGeometry (1.6, 0.9)
+   const mesh = new THREE.Mesh (geometry, shaderMaterial)
+   scene.add (mesh)
    
    // Animation loop
-   renderer.setAnimationLoop((time) => {
+   renderer.setAnimationLoop (time => {
       shaderMaterial.uniforms.u_time.value = time * 0.001
-      renderer.render(scene, camera)
+      renderer.render (scene, camera)
    })
    
    // Render code block
-   codeblockRenderer(document, "interactive_shader_script", "interactive_shader_code")
+   codeblockRenderer (document, "interactive_shader_script", "interactive_shader_code")
 </script>
 
 
 # More Advanced - 3D with Shaders
 
-Now let's see how we can apply custom shaders to 3D objects for more interesting effects:
+Now let's apply a custom shader to mutate the geometry of a 3D object:
 
 <div id="shader_3d"></div>
 <div id="shader_3d_code"></div>
@@ -256,13 +256,13 @@ Now let's see how we can apply custom shaders to 3D objects for more interesting
          
          void main() {
             // Create a color based on the position and normal
-            vec3 color = 0.5 + 0.5 * cos(u_time + vPosition + vec3(0, 2, 4));
+            vec3 color = 0.5 + 0.5 * cos (u_time + vPosition + vec3 (0, 2, 4));
             
             // Add some shading based on the normals
-            float lighting = dot(normalize(vNormal), normalize(vec3(1.0, 1.0, 1.0)));
+            float lighting = dot (normalize (vNormal), normalize (vec3 (1.0, 1.0, 1.0)));
             lighting = 0.5 + lighting * 0.5;
             
-            gl_FragColor = vec4(color * lighting, 1.0);
+            gl_FragColor = vec4 (color * lighting, 1.0);
          }
       `,
       side: THREE.DoubleSide
@@ -271,15 +271,16 @@ Now let's see how we can apply custom shaders to 3D objects for more interesting
    // create a torus knot
    const geometry = new THREE.TorusKnotGeometry (0.5, 0.15, 200, 32)
    const mesh = new THREE.Mesh (geometry, shaderMaterial)
+   // const mesh = new THREE.Mesh (geometry)
    scene.add (mesh)
    
    // add light
-   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+   const ambientLight = new THREE.AmbientLight (0xffffff, 0.5)
    scene.add (ambientLight)
    
    // animation loop
-   renderer.setAnimationLoop (time => {
-      shaderMaterial.uniforms.u_time.value = time * 0.001
+   renderer.setAnimationLoop (ms => {
+      shaderMaterial.uniforms.u_time.value = ms * 0.001
       controls.update ()
       renderer.render (scene, camera)
    })
@@ -328,101 +329,101 @@ p5.js also supports shaders, making GPU-based graphics accessible to beginners. 
 <div id="p5_shader_code"></div>
 
 <script id="p5_shader_script" type="module">
-   import codeblockRenderer from "/scripts/codeblock_renderer.js"
-   import p5 from "/scripts/p5.esm.js"
+   // import codeblockRenderer from "/scripts/codeblock_renderer.js"
+   // import p5 from "/scripts/p5.esm.js"
    
-   const sketch = p => {
-      console.log (p.createShader)
-      let theShader
+   // const sketch = p => {
+   //    console.log (p.createShader)
+   //    let theShader
       
-      p.preload = () => {
+   //    p.preload = () => {
 
-         // Define the shaders as strings
-         const vertexShader = `
-            attribute vec3 aPosition;
-            attribute vec2 aTexCoord;
+   //       // Define the shaders as strings
+   //       const vertexShader = `
+   //          attribute vec3 aPosition;
+   //          attribute vec2 aTexCoord;
             
-            varying vec2 vTexCoord;
+   //          varying vec2 vTexCoord;
             
-            void main() {
-               vTexCoord = aTexCoord;
-               vec4 positionVec4 = vec4(aPosition, 1.0);
-               positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
-               gl_Position = positionVec4;
-            }
-         `
+   //          void main() {
+   //             vTexCoord = aTexCoord;
+   //             vec4 positionVec4 = vec4(aPosition, 1.0);
+   //             positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+   //             gl_Position = positionVec4;
+   //          }
+   //       `
          
-         const fragmentShader = `
-            precision mediump float;
+   //       const fragmentShader = `
+   //          precision mediump float;
             
-            varying vec2 vTexCoord;
-            uniform vec2 u_resolution;
-            uniform float u_time;
-            uniform vec2 u_mouse;
+   //          varying vec2 vTexCoord;
+   //          uniform vec2 u_resolution;
+   //          uniform float u_time;
+   //          uniform vec2 u_mouse;
             
-            float circle(vec2 st, float radius, vec2 center) {
-               vec2 dist = st - center;
-               return 1.0 - smoothstep(radius - 0.01, radius + 0.01, dot(dist, dist) * 4.0);
-            }
+   //          float circle(vec2 st, float radius, vec2 center) {
+   //             vec2 dist = st - center;
+   //             return 1.0 - smoothstep(radius - 0.01, radius + 0.01, dot(dist, dist) * 4.0);
+   //          }
             
-            void main() {
-               vec2 st = vTexCoord;
+   //          void main() {
+   //             vec2 st = vTexCoord;
                
-               // Create a gradient background
-               vec3 bg = vec3(st.x, st.y, 0.5);
+   //             // Create a gradient background
+   //             vec3 bg = vec3(st.x, st.y, 0.5);
                
-               // Interactive circle that follows the mouse
-               float mouseBall = circle(st, 0.1, u_mouse);
-               vec3 mouseBallColor = vec3(1.0, 0.2, 0.6);
+   //             // Interactive circle that follows the mouse
+   //             float mouseBall = circle(st, 0.1, u_mouse);
+   //             vec3 mouseBallColor = vec3(1.0, 0.2, 0.6);
                
-               // Time-based animated circles
-               float t = u_time * 0.5;
-               float pulse = sin(t) * 0.5 + 0.5;
-               float circle1 = circle(st, 0.2 * pulse, vec2(0.3, 0.3));
-               float circle2 = circle(st, 0.1 * (1.0 - pulse), vec2(0.7, 0.7));
+   //             // Time-based animated circles
+   //             float t = u_time * 0.5;
+   //             float pulse = sin(t) * 0.5 + 0.5;
+   //             float circle1 = circle(st, 0.2 * pulse, vec2(0.3, 0.3));
+   //             float circle2 = circle(st, 0.1 * (1.0 - pulse), vec2(0.7, 0.7));
                
-               // Blend all elements together
-               vec3 color = bg;
-               color = mix(color, vec3(0.0, 0.8, 0.8), circle1);
-               color = mix(color, vec3(1.0, 0.8, 0.0), circle2);
-               color = mix(color, mouseBallColor, mouseBall);
+   //             // Blend all elements together
+   //             vec3 color = bg;
+   //             color = mix(color, vec3(0.0, 0.8, 0.8), circle1);
+   //             color = mix(color, vec3(1.0, 0.8, 0.0), circle2);
+   //             color = mix(color, mouseBallColor, mouseBall);
                
-               gl_FragColor = vec4(color, 1.0);
-            }
-         `
+   //             gl_FragColor = vec4(color, 1.0);
+   //          }
+   //       `
          
-         // Load the shader
-         theShader = p.createShader (vertexShader, fragmentShader)
-      }
+   //       // Load the shader
+   //       theShader = p.createShader (vertexShader, fragmentShader)
+   //    }
       
-      p.setup = () => {
-         // Create a canvas that fills the container
-         const container = document.getElementById ('p5_shader_container')
-         const width = container.offsetWidth
-         const height = width * 9 / 16
-         p.createCanvas (width, height, p.WEBGL)
-         p.noStroke ()
-      }
+   //    p.setup = () => {
+   //       // Create a canvas that fills the container
+   //       const container = document.getElementById ('p5_shader_container')
+   //       const width = container.offsetWidth
+   //       const height = width * 9 / 16
+   //       p.createCanvas (width, height, p.WEBGL)
+   //       p.noStroke ()
+   //    }
       
-      p.draw = () => {
-         // Shader uniforms can be set with setUniform
-         theShader.setUniform ("u_resolution", [p.width, p.height])
-         theShader.setUniform ("u_time", p.millis () / 1000.0)
-         theShader.setUniform ("u_mouse", [p.mouseX / p.width, 1.0 - p.mouseY / p.height])
+   //    p.draw = () => {
+   //       // Shader uniforms can be set with setUniform
+   //       theShader.setUniform ("u_resolution", [p.width, p.height])
+   //       theShader.setUniform ("u_time", p.millis () / 1000.0)
+   //       theShader.setUniform ("u_mouse", [p.mouseX / p.width, 1.0 - p.mouseY / p.height])
          
-         // Apply the shader
-         p.shader (theShader)
+   //       // Apply the shader
+   //       p.shader (theShader)
          
-         // Draw a rectangle covering the entire canvas
-         p.rect(0, 0, p.width, p.height)
-      }
-   }
+   //       // Draw a rectangle covering the entire canvas
+   //       p.rect(0, 0, p.width, p.height)
+   //    }
+   // }
    
-   // Create the p5 instance and attach it to the container
-   new p5 (sketch, 'p5_shader_container')
+   // // Create the p5 instance and attach it to the container
+   // new p5 (sketch, 'p5_shader_container')
    
-   // Render the code for the p5 sketch
-   codeblockRenderer (document, "p5_shader_script", "p5_shader_code")
+   // // Render the code for the p5 sketch
+   // codeblockRenderer (document, "p5_shader_script", "p5_shader_code")
 </script>
 
 In this p5.js example:
@@ -479,7 +480,7 @@ This example creates a moiré pattern by overlaying two sets of concentric circl
    }
    
    // create shader material
-   const shaderMaterial = new THREE.ShaderMaterial({
+   const shaderMaterial = new THREE.ShaderMaterial ({
       uniforms: {
          u_time: { value: 0.0 },
          u_mouse: { value: mouse }
@@ -748,28 +749,13 @@ Moiré patterns occur when two similar patterns are overlaid with a slight diffe
 
 # Code and Concept References
 
-The examples in this tutorial draw inspiration and knowledge from several excellent sources:
+The examples in this tutorial draw from several sources, including:
 
-## p5.js Shader Example
-- Implementation based on the [p5.js shader tutorial](https://p5js.org/examples/3d-shader-using-webcam.html)
-- SDF circle function adapted from [The Book of Shaders: Shapes](https://thebookofshaders.com/07/)
-
-## Basic Shader Example
-- Color wave animation concept: Inspired by [The Book of Shaders: Colors chapter](https://thebookofshaders.com/06/)
-- Three.js implementation: Based on the [Three.js ShaderMaterial documentation](https://threejs.org/docs/#api/en/materials/ShaderMaterial)
-
-## Interactive Ripple Effect
-- Ripple mathematics: Adapted from [Shadertoy: Water Ripple by Alexander Alekseev](https://www.shadertoy.com/view/4dS3Wd)
-- Mouse interaction technique: Based on Three.js examples for [Interactive Particles](https://threejs.org/examples/?q=inter#webgl_interactive_particles)
-
-## 3D Vertex Animation
-- Vertex displacement technique: Inspired by [Three.js examples: Vertex displacement](https://threejs.org/examples/?q=shader#webgl_shader)
-- Color animation: Based on techniques from [The Book of Shaders: Shapes](https://thebookofshaders.com/07/)
-
-## Moiré Patterns
-- Basic moiré concept: Mathematical principles from [Physically Based Rendering](http://www.pbr-book.org/) by Matt Pharr
-- Concentric circles implementation: Adapted from [Inigo Quilez's articles on SDFs](https://iquilezles.org/articles/distfunctions2d/)
-- Irrational frequency relationship: Based on principles from [Nature of Code](https://natureofcode.com/book/chapter-1-vectors/) by Daniel Shiffman
+- [The Book of Shaders: Shapes](https://thebookofshaders.com/07/)
+- [The Book of Shaders: Colors chapter](https://thebookofshaders.com/06/)
+- [Three.js ShaderMaterial documentation](https://threejs.org/docs/#api/en/materials/ShaderMaterial)
+- [Three.js examples: Vertex displacement](https://threejs.org/examples/?q=shader#webgl_shader)
+- [Inigo Quilez's articles on SDFs](https://iquilezles.org/articles/distfunctions2d/) (signed distance functions)
 
 # Resources for Learning More
 
@@ -779,5 +765,5 @@ More resources:
 - [Shadertoy](https://www.shadertoy.com/) - See and experiment with amazing shaders
 - [Three.js Shaders Documentation](https://threejs.org/docs/#api/en/materials/ShaderMaterial) - Reference for using shaders in Three.js
 - [Inigo Quilez's Articles](https://iquilezles.org/articles/) - Deep dives into shader mathematics
-- [ShaderToy: Art of Code](https://www.youtube.com/c/TheArtofCodeIsCool) - YouTube channel with excellent shader tutorials
+- [ShaderToy: Art of Code](https://www.youtube.com/playlist?list=PLGmrMu-IwbgsVjE7SAtFaWyhZXyBjJNnO) - YouTube channel with a bunch of shader tutorials
 
