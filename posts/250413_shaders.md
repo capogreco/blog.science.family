@@ -323,7 +323,7 @@ GLSL has many useful built-in functions:
 
 # Shaders in p5.js
 
-p5.js also supports shaders, making GPU-based graphics accessible to beginners. Let's create a simple p5.js shader example:
+p5.js also supports shaders! Let's make a shader work in p5.js:
 
 <!-- <div id="p5_shader_container"></div> -->
 <canvas id="p5_canvas"></canvas>
@@ -409,7 +409,7 @@ p5.js also supports shaders, making GPU-based graphics accessible to beginners. 
       }
       
       p.draw = () => {
-         // Shader uniforms can be set with setUniform
+         // shader uniforms can be set with setUniform
          theShader.setUniform ("u_resolution", [p.width, p.height])
          theShader.setUniform ("u_time", p.millis () * 0.001)
          theShader.setUniform ("u_mouse", [
@@ -417,30 +417,30 @@ p5.js also supports shaders, making GPU-based graphics accessible to beginners. 
             1.0 - p.mouseY / p.height
          ])
          
-         // Apply the shader
+         // apply the shader
          p.shader (theShader)
          
-         // Draw a rectangle covering the entire canvas
+         // draw a rectangle covering the entire canvas
          p.rect(0, 0, p.width, p.height)
       }
    }
    
-   // // Create the p5 instance and attach it to the container
+   // pass the sketch in to a new p5 instance
    new p5 (sketch)
    
-   // // Render the code for the p5 sketch
+   // render this code in a syntax-highlighted codeblock
    codeblockRenderer (document, "p5_shader_script", "p5_canvas")
 </script>
 
 In this p5.js example:
 
-1. We create a p5.js sketch with the instance mode
-2. We define both vertex and fragment shaders as strings within our JavaScript code
-3. We use p5.js's `createShader ()` function to compile the shader
-4. We pass uniforms to the shader using `setUniform ()`
-5. The shader creates gradient background with animated circles and mouse interaction
+1. we create a p5.js sketch with the instance mode
+2. we define both vertex and fragment shaders as strings within our JavaScript code
+3. we use p5.js's `createShader ()` function to compile the shader
+4. we pass uniforms to the shader using `setUniform ()`
+5. the shader creates gradient background with animated circles and mouse interaction
 
-This approach makes shader programming more accessible to beginners who are already familiar with p5.js.
+This approach makes shader programming accessible to those who would prefer to use p5.js.
 
 # Creating Moiré Effects with Shaders
 
